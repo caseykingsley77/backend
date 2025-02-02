@@ -17,7 +17,8 @@ def customers(request):
             serializer.save()
             return Response({'customer' : serializer.data}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
+
+# this view runs the crud func    
 @api_view(['Get', 'POST', 'DELETE'])
 def customer(request, id):
     try:
