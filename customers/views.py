@@ -1,11 +1,13 @@
 from . models import * 
 from django.http import JsonResponse, Http404
 from customers.serializers import CustomerSerialzer
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 
 @api_view(['Get', 'POST'])
+@permission_classes([IsAuthenticated])
 def customers(request):
     if request.method == 'GET':
         data = Customer.objects.all()
@@ -20,6 +22,7 @@ def customers(request):
 
 # this view runs the crud func    
 @api_view(['Get', 'POST', 'DELETE'])
+@permission_classes([IsAuthenticated])
 def customer(request, id):
     try:
         data = Customer.objects.get(pk=id)
